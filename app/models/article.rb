@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  attr_accessible :title, :body, :tag_list, :image
+  attr_accessible :title, :body, :tag_list, :image, :only
 
   has_many :comments
   has_many :taggings
@@ -24,6 +24,13 @@ class Article < ActiveRecord::Base
       tagging.tag_id = tag.id
     end
   end
+
+  def self.only(params)
+    limit = Article.all.count if !(limit = params[:limit])
+    @articles = Article.order(params[:order_by]).limit(limit)
+  end
+
+  private
 
   def word_count
     self.word_count = self.body.split(" ").count if body_changed?

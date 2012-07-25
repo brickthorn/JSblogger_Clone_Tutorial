@@ -1,12 +1,28 @@
 <h1>All Articles</h1>
 
+Order By:
+<%= link_to " Title ", "/articles?order_by=title" %>&nbsp;|&nbsp;
+<%= link_to " Word Count ", "/articles?order_by=word_count" %>&nbsp;|&nbsp;
+<%= link_to " Published ", "/articles?order_by=created_at" %>
+
+<br /><br />
 <ul>
+
   <% @articles.each do |article| %>
-    <li>
-      <%= link_to article.title, article_path(article) %>
-    </li>
+      <li>
+          <%= link_to article.title, article_path(article) %>
+      </li>
   <% end %>
+
+
+    <% # @articles.each_with_index do |article, count| %>
+    <% # if count > @limit.to_i - 1 %>
+    <% #  break %>
+    <% # else %>
+
 </ul>
+
+
 
 <%= link_to "New Article", new_article_path, :class => "new_article" %>
 

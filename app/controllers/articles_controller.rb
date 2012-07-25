@@ -2,8 +2,12 @@ class ArticlesController < ApplicationController
   before_filter :require_login, :except => [:index, :show]
 
   def index
-    @articles = Article.order(params[:order_by])
+    @articles = Article.only(params)
 
+# is it possible to create an instance variable of a "relation" and call a model method on it?
+    # @articles = Article.order(params[:order_by])
+    # @articles = Article.order(params[:order_by]).only(params[:limit]) if params[:limit]
+    # @articles = @articles.only(params[:limit]) if params[:limit]
   end
 
   def show
