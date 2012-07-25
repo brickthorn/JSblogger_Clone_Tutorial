@@ -7,6 +7,8 @@ class Article < ActiveRecord::Base
 
   has_attached_file :image
 
+  before_save :word_count
+
   def tag_list
     return self.tags.join(", ")
   end
@@ -22,4 +24,9 @@ class Article < ActiveRecord::Base
       tagging.tag_id = tag.id
     end
   end
+
+  def word_count
+    self.word_count = self.body.split(" ").count if body_changed?
+  end
+
 end

@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   before_filter :require_login, :except => [:index, :show]
 
   def index
-    @articles = Article.all
+    @articles = Article.order(params[:order_by])
+
   end
 
   def show
@@ -17,7 +18,7 @@ class ArticlesController < ApplicationController
     # puts params[:article]
 
     @article = Article.new(:title => params[:article][:title], :body => params[:article][:body])
-    @article = params[:article][:tag_list]
+    @article.tag_list = params[:article][:tag_list]
 
     # @article = Article.new(params[:article])
     # @article = Article.new
